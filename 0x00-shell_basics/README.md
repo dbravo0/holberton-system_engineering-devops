@@ -1,0 +1,1 @@
+Exe with the command for print absolute path name of the current working directory
