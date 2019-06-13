@@ -1,0 +1,1 @@
+Info and scripts about permissions of the shell
