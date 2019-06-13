@@ -1,2 +1,2 @@
 #!/bing/bash
-chmod u+x,g+x,o+x hello
+chmod a+x hello
