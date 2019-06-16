@@ -1,2 +1,2 @@
 #!/bin/bash
-egrep --exlude=bin /etc/passwd
+grep -IrL /etc/passwd
