@@ -1,2 +1,2 @@
 #!/bin/bash
-egrep --exlude-from=bin /etc/passwd
+egrep --exlude=bin /etc/passwd
