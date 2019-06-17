@@ -1,0 +1,1 @@
+New project about Shell, init files, variables and expantions
