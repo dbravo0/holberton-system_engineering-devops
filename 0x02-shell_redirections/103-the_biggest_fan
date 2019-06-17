@@ -1,0 +1,2 @@
+#!/bin/bash
+cut -d $'\t' -f 1 | sort | uniq -c | tail -11 | rev
