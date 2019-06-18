@@ -1,2 +1,2 @@
 #!/bin/bash
-
+$((#5 echo $WATER | tr water 01234)) $((#4 echo $STIR | tr stir 0123)) printf "%\n" $((WATER + STIR)) | tr 01234567 behlnort
