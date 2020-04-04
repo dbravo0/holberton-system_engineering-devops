@@ -11,7 +11,7 @@ echo frontend front
 
 backend back
     balance roundrobin
-    server 965-web-01 35.237.254.224:80 check
-    server 965-web-02 34.73.109.66:80 check
+    server 965-web-01 35.243.184.34:80 check
+    server 965-web-02 107.21.164.251:80 check
 
 sudo service haproxy restart
