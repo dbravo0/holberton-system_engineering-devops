@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Configure HAproxy
+#Configure HAproxy
 
 sudo apt-get -y upgrade
 sudo apt-get -y update
 sudo apt-get -y install haproxy
-cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.default
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.default
 echo "listen appname
 	 bind *:80
 	 mode http
