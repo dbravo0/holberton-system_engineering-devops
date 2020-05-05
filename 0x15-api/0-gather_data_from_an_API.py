@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""using this REST API, for a given employee ID, returns information about his/her TODO list progress"""
+"""returns information about his/her TODO list progress using the ID"""
 import requests
 import sys
 
 
 if __name__ == "__main__":
-    req_user = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' +
-                         sys.argv[1])
-    req_name = requests.get('https://jsonplaceholder.typicode.com/users/' +
-                         sys.argv[1])
+    user = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' +
+                        sys.argv[1])
+    name = requests.get('https://jsonplaceholder.typicode.com/users/' +
+                        sys.argv[1])
 
-    json_user = req_user.json()
-    json_name = req_name.json()
+    json_user = user.json()
+    json_name = name.json()
 
     task_total = 0
     task_completed = 0
