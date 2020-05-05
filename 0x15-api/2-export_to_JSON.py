@@ -19,12 +19,13 @@ if __name__ == "__main__":
 
     for task in json_todo:
         task_dict = {}
-        task_dict["task"] = task.get('title')
-        task_dict["completed"] = task.get('completed')
+        task_dict["task"] = task['title']
+        task_dict["completed"] = task['completed']
         task_dict["username"] = json_user['username']
         task_list.append(task_dict)
 
-    task_dict[sys.argv[1]] = task_list
+    task_json = {}
+    task_json[sys.argv[1]] = task_list
 
     with open(sys.argv[1] + '.json', 'w') as json_file:
         json.dump(task_dict, json_file)
