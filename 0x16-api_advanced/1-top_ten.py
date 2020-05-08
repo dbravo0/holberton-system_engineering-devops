@@ -12,8 +12,8 @@ def top_ten(subreddit):
                        headers={'User-Agent': 'head'})
 
     if req.status_code == 200:
-        subs = (req_.json().get("data").get("children"))
+        subs = req_.json()["data"]["children"]
         for posts in subs:
-            print(posts.get("data").get("tittle"))
+            print(posts["data"]["tittle"])
     else:
         print(None)
