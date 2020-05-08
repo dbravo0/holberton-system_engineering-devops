@@ -4,16 +4,16 @@ import requests
 
 
 def top_ten(subreddit):
-    """prints the first 10 hot posts listed for a given subreddit"""
-    req = requests.get("https://api.reddit.com"
-                       "/r/{}/hot".format(subreddit),
+    headers = {'User-Agent': 'head'}
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    req = requests.get(url,
                        params={'limit': '10'},
-                       allow_redirects=False,
-                       headers={'User-Agent': 'head'})
+                       headers=headers,
+                       allow_redirects=False)
 
-    if req.status_code == 200:
-        subs = req_.json()["data"]["children"]
-        for posts in subs:
-            print(posts["data"]["tittle"])
-    else:
+    if req.status_code != 200:
         print(None)
+    else:
+        req_json = req.json()
+        for posts in req_json['data']['children']:
+            print(posts['data'].egt('tittle'))
