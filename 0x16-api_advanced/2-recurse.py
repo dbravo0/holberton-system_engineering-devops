@@ -5,9 +5,10 @@ import requests
 
 def recurse(subreddit, hot_list=[], after=None):
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    headers = {'user-agent': 'head'},
     req = requests.get(url,
-                       header={'user-agent': 'head'},
                        params={'after': after},
+                       headers=headers,
                        allow_redirects=False)
 
     if req.status_code != 200:
