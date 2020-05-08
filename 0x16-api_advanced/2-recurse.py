@@ -3,7 +3,7 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=""):
+def recurse(subreddit, hot_list=[], after=None):
     req = requests.get("https://www.reddit.com/r/{}/hot.json"
                        .format(subreddit),
                        header={'user-agent': 'head'},
@@ -13,9 +13,9 @@ def recurse(subreddit, hot_list=[], after=""):
     if req.status_code != 200:
         return None
     else:
-        req_json = req.json().get('data').get('children')
+        req_json = req.json()
         after = req_json['data'].get('after')
-        for posts in req_json:
+        for posts in req_json['data']['children']:
             hot_list.append(posts['data'].get('title'))
         if after is None:
             return hot_list
