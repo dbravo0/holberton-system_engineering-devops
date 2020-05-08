@@ -4,8 +4,8 @@ import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    req = requests.get("https://www.reddit.com/r/{}/hot.json"
-                       .format(subreddit),
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    req = requests.get(url,
                        header={'user-agent': 'head'},
                        params={'after': after},
                        allow_redirects=False)
