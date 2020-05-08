@@ -4,6 +4,7 @@ import requests
 
 
 def top_ten(subreddit):
+    """prints the first 10 hot posts listed for a given subreddit"""
     req = requests.get("https://api.reddit.com"
                        "/r/{}/hot".format(subreddit),
                        params={'limit': '10'},
