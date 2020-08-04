@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Uses ssh to connect to your server using the private key
 
-ssh -i ~/.ssh/holberton ubuntu@34.75.15.77
+sudo ssh -i 0-RSA_public_key ubuntu@34.75.15.77
+
