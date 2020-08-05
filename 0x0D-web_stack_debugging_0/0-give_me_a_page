@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Fixes that contains Hello Holberton
+
+sudo service apache2 restart
