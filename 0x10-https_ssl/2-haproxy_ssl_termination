@@ -35,3 +35,19 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
+
+frontend www-http
+          bind *:80
+         reqadd X-Forwarded-Proto:\ http
+         default_backend web-backend
+
+frontend www-https
+         bind *:443 ssl crt /etc/haproxy/ssl/www.teranox.tech.pem
+         reqadd X-Forwarded-Proto:\ https
+         default_backend web-backend
+
+backend web-backend
+        redirect scheme https if !{ ssl_fc }
+        balance roundrobin
+        server web-01  34.75.15.77:80 check
+        server web-02  35.185.77.201:80 check
