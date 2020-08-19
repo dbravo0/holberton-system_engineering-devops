@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 # Display information about subdomains
 
-if [ "$#" -eq 1 ]
-then
-    dom="www lb-01 web-01 web-02"
+if [ $# -eq 1 ]; then
+    domains="www.$1 lb-01.$1 web-01.$1 web-02.$1"
 else
-    dom=$2
+    domains="$2.$1"
 fi
-for sub in $dom
-do
-    echo -n "The subdomain $sub "
-    dig "$sub.$1" | grep -A1 'ANSWER SECTION:' | tail -1 | awk '{ print "is a " $4 " record and points to " $5}'
-done
+dig $domains | awk '/ANSWER SECTION:/ { getline; split($1, a, "."); print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
