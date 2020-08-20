@@ -25,11 +25,11 @@ defaults
         mode    http
         option  httplog
         option  dontlognull
+        option forwardfor
+        option http-server-close
         timeout connect 5000
         timeout client  50000
         timeout server  50000
-        option forwardfor
-        option http-server-close
         errorfile 400 /etc/haproxy/errors/400.http
         errorfile 403 /etc/haproxy/errors/403.http
         errorfile 408 /etc/haproxy/errors/408.http
@@ -39,21 +39,22 @@ defaults
         errorfile 504 /etc/haproxy/errors/504.http
 
 frontend www-http
-   bind 104.196.156.37:80
-   reqadd X-Forwarded-Proto:\ http
-   default_backend www-backend
+        bind 104.196.156.37:80
+        reqadd X-Forwarded-Proto:\ http
+        default_backend www-backend
 
 frontend www-https
-   bind 104.196.156.37:443 ssl crt /etc/haproxy/certs/lb-01.dbravo.tech.pem
-   reqadd X-Forwarded-Proto:\ https
-   acl letsencrypt-acl path_beg /.well-known/acme-challenge/
-   use_backend letsencrypt-backend if letsencrypt-acl
-   default_backend www-backend
+        bind 104.196.156.37:443 ssl crt /etc/haproxy/certs/lb-01.dbravo.tech.pem
+        reqadd X-Forwarded-Proto:\ https
+        acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+        use_backend letsencrypt-backend if letsencrypt-acl
+        default_backend www-backend
 
 backend www-backend
-   redirect scheme https if !{ ssl_fc }
-   server 958-web-01 34.75.15.77:80 check
-   server 958-web-02 35.185.77.201:80 check
+        redirect scheme https if !{ ssl_fc }
+        balance roundrobin
+        server 958-web-01 34.75.15.77:80 check
+        server 958-web-02 35.185.77.201:80 check
 
 backend letsencrypt-backend
-   server letsencrypt 127.0.0.1:54321
+        server letsencrypt 127.0.0.1:54321
