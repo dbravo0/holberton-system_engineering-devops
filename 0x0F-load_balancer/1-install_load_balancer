@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 #Configure HAproxy
 
-sudo apt-get -y upgrade
 sudo apt-get -y update
 sudo apt-get -y install haproxy
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.default
-echo "listen appname
+echo "
+frontend www-http
         bind *:80
         mode http
+        default_backend www-backend
+
+backend www-backend
         balance roundrobin
         server 958-web-01 34.75.15.77:80 check
-        server 958-web-02 35.185.77.201:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+        server 958-web-02 35.185.77.201:80 check
+" | sudo tee -a /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
