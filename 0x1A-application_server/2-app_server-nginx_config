@@ -15,6 +15,7 @@
 #
 server {
         listen 80 default_server;
+add_header X-Served-By gc-958-web-01-1597971688;
         listen [::]:80 default_server;
 
         # SSL configuration
@@ -24,11 +25,6 @@ server {
         #
         # Note: You should disable gzip for SSL traffic.
         # See: https://bugs.debian.org/773332
-        error_page 404 /404_error.html;
-        location = /404.html {
-                root /var/www/html;
-                internal;
-        }
         #
         # Read up on ssl_ciphers to ensure a secure configuration.
         # See: https://bugs.debian.org/765782
@@ -39,15 +35,26 @@ server {
         # include snippets/snakeoil.conf;
 
         root /var/www/html;
+        location /hbnb_static/ {
+                alias /data/web_static/current/;
+        }
 
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
 
         server_name _;
-        rewrite ^/redirect_me http://www.youtube.com permanent;
+
+        location /hbnb_static/ {
+                alias /data/web_static/current/;
+                autoindex off;
+        }
 
         location /airbnb-onepage {
-        proxy_pass http://0.0.0.0:5000/airbnb-onepage;
+                include proxy_params;
+                proxy_pass http://0.0.0.0:5000/airbnb-onepage;
+        }
+
+        location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
                 try_files $uri $uri/ =404;
@@ -91,4 +98,3 @@ server {
 #               try_files $uri $uri/ =404;
 #       }
 #}
-
